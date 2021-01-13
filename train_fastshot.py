@@ -42,6 +42,7 @@ class TrainFastShot:
         y = batch[1]
 
         result = self.get_model()(x)
+        #align shapes for the output with class labels of y
         result = result.permute(0, 2, 3, 4, 1)
         result = result.reshape(
             result.shape[0] * result.shape[1] * result.shape[2] *
