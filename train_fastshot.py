@@ -34,7 +34,7 @@ class TrainFastShot:
 
     def prepare_loss(self, batch):
         """
-
+        adaptable way to handle different loss functions, or extending it for specific use cases
         :param batch:
         :return:
         """
