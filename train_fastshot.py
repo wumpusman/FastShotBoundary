@@ -2,11 +2,12 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
+
+
 class TrainFastShot:
     """
     Training wrapper to evaluate model, can be extended
     """
-
     def __init__(self, model, loss_function, skew_loss_function=False):
         self._loss_function = loss_function
         self._model = model
@@ -25,13 +26,13 @@ class TrainFastShot:
         """
         pass
 
-    def set_loss_function(self,loss_function, skew_loss_function=False):
+    def set_loss_function(self, loss_function, skew_loss_function=False):
         """
         sets the loss function
         """
         self._loss_function = loss_function
 
-    def prepare_loss (self, batch):
+    def prepare_loss(self, batch):
         """
 
         :param batch:
@@ -40,13 +41,14 @@ class TrainFastShot:
         x = batch[0]
         y = batch[1]
 
-        result =self.get_model()(x)
+        result = self.get_model()(x)
         result = result.permute(0, 2, 3, 4, 1)
-        result = result.reshape(result.shape[0] * result.shape[1] * result.shape[2] * result.shape[3], 2)
-        return self._loss_function(result ,y.long())
+        result = result.reshape(
+            result.shape[0] * result.shape[1] * result.shape[2] *
+            result.shape[3], 2)
+        return self._loss_function(result, y.long())
 
-
-    def train(self,data, epochs, optimizer, is_training):
+    def train(self, data, epochs, optimizer, is_training):
         """
         :param data: data to be iterated over, a tuple of x and y, should really be a dataloader object in the future
         :param epochs: how many interations
@@ -61,10 +63,10 @@ class TrainFastShot:
                 y = data[i][1]
                 loss = 0
                 if is_training == True:
-                    loss = self.prepare_loss((x,y))
+                    loss = self.prepare_loss((x, y))
                 else:
                     with torch.no_grad():
-                        loss = self.prepare_loss((x,y))
+                        loss = self.prepare_loss((x, y))
 
                 optimizer.zero_grad()
 
@@ -76,7 +78,7 @@ class TrainFastShot:
 
         return loss_vals
 
-    def score(self,predictions):
+    def score(self, predictions):
         """
         provides a score evaluation of performance
         :param predictions:
