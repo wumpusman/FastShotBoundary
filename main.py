@@ -7,7 +7,7 @@ if __name__ == '__main__':
     fake_img = torch.rand(
         (5, 3, 20, 64,
          64))  #single batch of 5 blocks that are 20 long in dpeth
-    ground_truth = torch.ones(3610).float()  #hard coded corresponding class
+    ground_truth = torch.ones(143055).float()  #hard coded corresponding class
 
     fake_shot_net = FastShot()
 

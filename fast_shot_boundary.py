@@ -11,11 +11,11 @@ class FastShot(nn.Module):
     def __init__(self):
 
         super(FastShot, self).__init__()
-        self.conv1 = nn.Conv3d(3, 16, (8, 30, 30), stride=1)
-        self.conv2 = nn.Conv3d(16, 24, (6, 12, 12), stride=1)
-        self.conv3 = nn.Conv3d(24, 32, (4, 6, 6), stride=1)
-        self.conv4 = nn.Conv3d(32, 12, (4, 1, 1), stride=1)
-        self.softmax_layer = nn.Conv3d(12, 2, (1, 1, 1), stride=1)
+        self.conv1 = nn.Conv3d(3, 16, (3, 5, 5), stride=1)
+        self.conv2 = nn.Conv3d(16, 24, (3, 3, 3), stride=1)
+        self.conv3 = nn.Conv3d(24, 32, (3, 3, 3), stride=1)
+        self.conv4 = nn.Conv3d(32, 12, (1, 6, 6), stride=1)
+        self.softmax_layer = nn.Conv3d(12, 2, (4, 1, 1), stride=1)
 
     def _check_dims(self, prev_conv, input_channel, output_channel,
                     kernel_shape):
